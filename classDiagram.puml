@@ -1,0 +1,100 @@
+@startuml
+
+entity "Movements" as movements {
+  + Movement_ID (PK)
+  --
+  Vendor_ID (FK)
+  Storage_ID (FK)
+  Type_ID (FK)
+  Currency_ID (FK)
+  SubCategory_ID (FK)
+  Movement_Date
+  Amount
+  Amount_in_Base_Currency
+  Description
+}
+
+entity "Tags" as tags {
+  + Tag_ID (PK)
+  --
+  Tag_Name
+  Description
+}
+
+entity "Movements_Tags" as movements_tags {
+  + Movement_ID (FK)
+  + Tag_ID (FK)
+}
+
+entity "Vendor" as vendor {
+  + Vendor_ID (PK)
+  --
+  Vendor_Name
+  Address
+  Phone
+  Email
+  Website
+}
+
+entity "Category" as category {
+  + Category_ID (PK)
+  --
+  Category_Name
+  Description
+}
+
+entity "SubCategory" as subcategory {
+  + SubCategory_ID (PK)
+  --
+  SubCategory_Name
+  Category_ID (FK)
+}
+
+entity "Storage_Methods" as storage {
+  + Storage_ID (PK)
+  --
+  Storage_Name
+  Storage_Type
+  Balance
+  Currency_ID (FK)
+}
+
+entity "Credit_Cards" as credit_cards {
+  + Storage_ID (PK, FK)
+  --
+  Credit_Limit
+  Outstanding_Balance
+  Available_Credit
+  Cut_Off_Date
+  Payment_Due_Date
+}
+
+entity "Transaction_Type" as transaction_type {
+  + Type_ID (PK)
+  --
+  Type
+  Description
+}
+
+entity "Currency" as currency {
+  + Currency_ID (PK)
+  --
+  Currency_Code
+  Exchange_Rate_to_Base
+}
+
+movements ||..|{ movements_tags
+movements_tags }..|| tags
+
+movements }|--|| vendor
+movements }|--|| subcategory
+movements }|--|| storage
+movements }|--|| transaction_type
+movements }|--|| currency
+
+storage ||--|| currency
+storage ||--|| credit_cards
+
+subcategory }|--|| category
+
+@enduml
