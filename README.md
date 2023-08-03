@@ -5,8 +5,7 @@ This project is a system for managing and tracking personal finances. Users can 
 ## Entity-Relationship Diagram
 Below is the Entity-Relationship Diagram (ERD) of the system:
 
-![alt text](https://github.com/Zerg-IO/SCFlow/images/DiagramER.png)
-
+![alt text](https://github.com/Zerg-IO/SCFlow/blob/main/images/DiagramER.png)
 ## Entities
 - **Movements:** Represents financial movements. It is related to vendors, storage methods, transaction types, currency, and subcategories.
 - **Tags:** Represents tags that can be assigned to movements.
