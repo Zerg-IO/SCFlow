@@ -1,3 +1,7 @@
+--liquibase formatted sql
+
+--changeset Zerg:1
+
 CREATE TABLE Currency (
     Currency_ID INTEGER PRIMARY KEY,
     Currency_Code TEXT NOT NULL,
