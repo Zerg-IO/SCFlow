@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+<changeSet author="zerg" id="1">
+    <createTable tableName="Currency">
+        <column name="Currency_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Currency_Code" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Exchange_Rate_to_Base" type="REAL">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="Vendor">
+        <column name="Vendor_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Vendor_Name" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Address" type="TEXT"/>
+        <column name="Phone" type="TEXT"/>
+        <column name="Email" type="TEXT"/>
+        <column name="Website" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="Category">
+        <column name="Category_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Category_Name" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Description" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="SubCategory">
+        <column name="SubCategory_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="SubCategory_Name" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Category_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_subcategory_category" referencedTableName="Category" referencedColumnNames="Category_ID"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="Storage_Methods">
+        <column name="Storage_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Storage_Name" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Storage_Type" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Balance" type="REAL">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Currency_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_storage_currency" referencedTableName="Currency" referencedColumnNames="Currency_ID"/>
+        </column>
+    </createTable>
+
+    <createTable tableName="Credit_Cards">
+        <column name="Storage_ID" type="INTEGER">
+            <constraints primaryKey="true" foreignKeyName="fk_creditcards_storage" referencedTableName="Storage_Methods" referencedColumnNames="Storage_ID"/>
+        </column>
+        <column name="Credit_Limit" type="REAL"/>
+        <column name="Outstanding_Balance" type="REAL"/>
+        <column name="Available_Credit" type="REAL"/>
+        <column name="Cut_Off_Date" type="TEXT"/>
+        <column name="Payment_Due_Date" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="Transaction_Type">
+        <column name="Type_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Type" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Description" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="Movements">
+        <column name="Movement_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Vendor_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_movements_vendor" referencedTableName="Vendor" referencedColumnNames="Vendor_ID"/>
+        </column>
+        <column name="Storage_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_movements_storage" referencedTableName="Storage_Methods" referencedColumnNames="Storage_ID"/>
+        </column>
+        <column name="Type_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_movements_type" referencedTableName="Transaction_Type" referencedColumnNames="Type_ID"/>
+        </column>
+        <column name="Currency_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_movements_currency" referencedTableName="Currency" referencedColumnNames="Currency_ID"/>
+        </column>
+        <column name="SubCategory_ID" type="INTEGER">
+            <constraints nullable="false" foreignKeyName="fk_movements_subcategory" referencedTableName="SubCategory" referencedColumnNames="SubCategory_ID"/>
+        </column>
+        <column name="Movement_Date" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Amount" type="REAL">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Amount_in_Base_Currency" type="REAL">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Description" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="Tags">
+        <column name="Tag_ID" type="INTEGER" autoIncrement="true">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="Tag_Name" type="TEXT">
+            <constraints nullable="false"/>
+        </column>
+        <column name="Description" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="Movements_Tags">
+    <column name="Movement_ID" type="INTEGER">
+        <constraints nullable="false" foreignKeyName="fk_movements_tags_movement" referencedTableName="Movements" referencedColumnNames="Movement_ID"/>
+    </column>
+    <column name="Tag_ID" type="INTEGER">
+        <constraints nullable="false" foreignKeyName="fk_movements_tags_tag" referencedTableName="Tags" referencedColumnNames="Tag_ID"/>
+    </column>
+    <column name="PRIMARY_KEY" type="TEXT" valueComputed="Movement_ID || ',' || Tag_ID"/>
+</createTable>
+</changeSet>
+</databaseChangeLog>
