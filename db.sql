@@ -58,6 +58,7 @@ CREATE TABLE Movements (
     Type_ID INTEGER,
     Currency_ID INTEGER,
     SubCategory_ID INTEGER,
+    User_ID INTEGER,
     Movement_Date TEXT NOT NULL,
     Amount REAL NOT NULL,
     Amount_in_Base_Currency REAL NOT NULL,
@@ -67,6 +68,7 @@ CREATE TABLE Movements (
     FOREIGN KEY (Type_ID) REFERENCES Transaction_Type(Type_ID),
     FOREIGN KEY (Currency_ID) REFERENCES Currency(Currency_ID),
     FOREIGN KEY (SubCategory_ID) REFERENCES SubCategory(SubCategory_ID)
+    FOREIGN KEY (User_ID) REFERENCES SubCategory(User_ID)
 );
 
 CREATE TABLE Tags (
@@ -81,4 +83,27 @@ CREATE TABLE Movements_Tags (
     PRIMARY KEY (Movement_ID, Tag_ID),
     FOREIGN KEY (Movement_ID) REFERENCES Movements(Movement_ID),
     FOREIGN KEY (Tag_ID) REFERENCES Tags(Tag_ID)
+);
+
+CREATE TABLE Users (
+    User_ID INTEGER PRIMARY KEY,
+    Username TEXT NOT NULL UNIQUE,
+    Password TEXT NOT NULL, -- Ideally should be hashed, not plain text
+    Email TEXT UNIQUE,
+    Date_Joined TEXT NOT NULL,
+    Last_Login TEXT
+);
+
+CREATE TABLE Roles (
+    Role_ID INTEGER PRIMARY KEY,
+    Role_Name TEXT NOT NULL UNIQUE,
+    Description TEXT
+);
+
+CREATE TABLE User_Roles (
+    User_ID INTEGER,
+    Role_ID INTEGER,
+    PRIMARY KEY (User_ID, Role_ID),
+    FOREIGN KEY (User_ID) REFERENCES Users(User_ID),
+    FOREIGN KEY (Role_ID) REFERENCES Roles(Role_ID)
 );
