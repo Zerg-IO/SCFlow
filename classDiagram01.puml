@@ -1,0 +1,118 @@
+@startuml
+
+class Currency {
+    +Currency_ID : Integer
+    -Currency_Code : Text
+    -Exchange_Rate_to_Base : Real
+}
+
+class Vendor {
+    +Vendor_ID : Integer
+    -Vendor_Name : Text
+    -Address : Text
+    -Phone : Text
+    -Email : Text
+    -Website : Text
+}
+
+class Category {
+    +Category_ID : Integer
+    -Category_Name : Text
+    -Description : Text
+}
+
+class SubCategory {
+    +SubCategory_ID : Integer
+    -SubCategory_Name : Text
+    ~Category_ID : Integer
+}
+
+Category "1" <-- "0..*" SubCategory : has
+
+class Storage_Methods {
+    +Storage_ID : Integer
+    -Storage_Name : Text
+    -Storage_Type : Text
+    -Balance : Real
+    ~Currency_ID : Integer
+}
+
+Currency "1" <-- "0..*" Storage_Methods : used by
+
+class Credit_Cards {
+    +Storage_ID : Integer
+    -Credit_Limit : Real
+    -Outstanding_Balance : Real
+    -Available_Credit : Real
+    -Cut_Off_Date : Text
+    -Payment_Due_Date : Text
+}
+
+Storage_Methods "1" <-- "1" Credit_Cards : is
+
+class Transaction_Type {
+    +Type_ID : Integer
+    -Type : Text
+    -Description : Text
+}
+
+class Movements {
+    +Movement_ID : Integer
+    ~Vendor_ID : Integer
+    ~Storage_ID : Integer
+    ~Type_ID : Integer
+    ~Currency_ID : Integer
+    ~SubCategory_ID : Integer
+    ~User_ID : Integer
+    -Movement_Date : Text
+    -Amount : Real
+    -Amount_in_Base_Currency : Real
+    -Description : Text
+}
+
+Vendor "1" <-- "0..*" Movements
+Storage_Methods "1" <-- "0..*" Movements
+Transaction_Type "1" <-- "0..*" Movements
+Currency "1" <-- "0..*" Movements
+SubCategory "1" <-- "0..*" Movements
+
+class Tags {
+    +Tag_ID : Integer
+    -Tag_Name : Text
+    -Description : Text
+}
+
+class Movements_Tags {
+    ~Movement_ID : Integer
+    ~Tag_ID : Integer
+}
+
+Movements "1" <-- "0..*" Movements_Tags
+Tags "1" <-- "0..*" Movements_Tags
+
+class Users {
+    +User_ID : Integer
+    -Username : Text
+    -Password : Text
+    -Email : Text
+    -Date_Joined : Text
+    -Last_Login : Text
+}
+
+Movements "0..*" -- "1" Users
+
+class Roles {
+    +Role_ID : Integer
+    -Role_Name : Text
+    -Description : Text
+}
+
+class User_Roles {
+    ~User_ID : Integer
+    ~Role_ID : Integer
+}
+
+Users "1" <-- "0..*" User_Roles
+Roles "1" <-- "0..*" User_Roles
+
+@enduml
