@@ -18,6 +18,11 @@ Below is the Entity-Relationship Diagram (ERD) of the system:
 - **Transaction_Type:** Defines transaction types like income, expenses, transfers, etc.
 - **Currency:** Manages different currencies and their exchange rates.
 
+## Class Diagram
+Below is the Class Diagram of the system:
+
+![alt text](https://github.com/Zerg-IO/SCFlow/blob/main/images/classDiagram01.png)
+
 ## Installation
 **TODO**
 ## Usage
