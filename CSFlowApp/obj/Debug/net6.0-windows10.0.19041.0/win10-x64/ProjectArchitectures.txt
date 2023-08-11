@@ -1,0 +1,1 @@
+C:\Users\sergi\OneDrive\Documentos\Projects\SCFlow\CSFlowApp\CSFlowApp.csproj;x64
