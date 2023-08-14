@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSFlowApp.ViewModels
 {
-    public class LoginPageViewModel : BaseViewModel
+    public partial class LoginPageViewModel : BaseViewModel
     {
         [ObservableProperty]
         private string _userName;
