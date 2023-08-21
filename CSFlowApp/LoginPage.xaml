@@ -2,11 +2,52 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CSFlowApp.LoginPage"
-             Title="LoginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False">
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="112"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" Orientation="Vertical" BackgroundColor="LightBlue" VerticalOptions="Start">
+            <Frame BorderColor="Transparent" CornerRadius="40" Padding="0" WidthRequest="80" HeightRequest="80">
+                <Image Source="avatar.png" WidthRequest="80" HeightRequest="80"/>
+            </Frame>
+            <Label Text="LOGIN" TextColor="Black" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20"/>
+            <Label Text="Sign in to continue" TextColor="Grey" HorizontalOptions="Center" FontSize="12"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Orientation="Vertical" VerticalOptions="Start">
+            <Frame HeightRequest="40" BackgroundColor="LightBlue" BorderColor="Transparent" Padding="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Image Source="icon_user.png" HeightRequest="30" WidthRequest="30"/>
+                    <Entry Text="{Binding UserName}" Placeholder="UserName"/>
+                </StackLayout>
+            </Frame>
+            <Frame HeightRequest="40" BackgroundColor="LightBlue" BorderColor="Transparent" Padding="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Image Source="icon_pass.png" HeightRequest="30" WidthRequest="30"/>
+                    <Entry Text="{Binding Password}" Placeholder="Password"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal" VerticalOptions="Start" BackgroundColor="LightBlue">
+            <CheckBox IsChecked="False"/>
+            <Label Text="Remember Me" HorizontalOptions="StartAndExpand" TextColor="Black" VerticalOptions="Center"/>
+            <Label Text="Forgot Password" HorizontalOptions="EndAndExpand" TextColor="Black" VerticalOptions="Center"/>
+        </StackLayout>
+
+
+        <Button Grid.Row="3" Text="SIGN IN" TextColor="White" BackgroundColor="Blue" FontSize="Small" WidthRequest="200" CornerRadius="20"/>
+
+        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label Text="New User? " TextColor="Black"/>
+            <Label Text="Sign Up" TextColor="Blue" FontAttributes="Bold"/>
+        </StackLayout>
+    </Grid>
 </ContentPage>
