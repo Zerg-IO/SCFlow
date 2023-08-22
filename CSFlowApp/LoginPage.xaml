@@ -6,7 +6,7 @@
              Shell.NavBarIsVisible="False">
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="112"/>
+            <RowDefinition Height="152"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -41,7 +41,6 @@
             <Label Text="Remember Me" HorizontalOptions="StartAndExpand" TextColor="Black" VerticalOptions="Center"/>
             <Label Text="Forgot Password" HorizontalOptions="EndAndExpand" TextColor="Black" VerticalOptions="Center"/>
         </StackLayout>
-
 
         <Button Grid.Row="3" Text="SIGN IN" TextColor="White" BackgroundColor="Blue" FontSize="Small" WidthRequest="200" CornerRadius="20"/>
 
